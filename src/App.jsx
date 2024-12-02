@@ -6,9 +6,9 @@ import { collection, doc, getDocs, deleteDoc, addDoc, updateDoc, getDoc } from '
 
 function App() {
   const [tasks, setTasks] = useState([]);
-
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   //Fetch docs from Firestore
   const fetchTasks = async () => {
@@ -41,9 +41,9 @@ const deleteTask = async (id) => {
       body: body,
       status: 'pending'
     })
-    setTitle('')
-    setBody('')
-    alert('Task Successfully Added!')
+    setTitle('');
+    setBody('');
+    setShowAlert(true);
   }
 
   //Changing Status from Pending to Completed
@@ -70,32 +70,42 @@ const deleteTask = async (id) => {
 
   return (
     <>
-
       <div className='formStyle'>
         <form onSubmit={addTask}>
-          <h3>Add a Task</h3>
+          <h2>WELCOME TO THE TASK MANAGER APP!</h2>
+          <h2>Add a Task</h2>
           <input type="text" name="title" id="title" placeholder="title" value={null} required onChange={(e) => setTitle(e.target.value)}/>
           <textarea name="description" id="description" placeholder='task description' value={null} required onChange={(e) => setBody(e.target.value)}></textarea>
-          <button type="submit" onClick={() => {setTimeout(()=> {window.location.reload()}, 1500)}}>Add Task</button>
+          <button className="alert-button" type="submit" onClick={() => {setTimeout(()=> {window.location.reload()}, 3500)}}>Add Task</button>
         </form>
       </div>
-      {
-        tasks.map((task) => (
-          <div key={task.id}> 
-            <div>
-              Task Title: {task.title} 
-            </div>
-            <div>
-              Task Body: {task.body} 
-            </div>
-            <div>
-              Task Status: <button onClick={() => {changeStatus(task.id)}}> {task.status} </button>
-            </div>
-            <button onClick={() => deleteTask(task.id)}>Delete Task</button>
-          </div>
 
-        ))
-      }
+      {showAlert && (
+        <div className="alert-message">
+          <span>Task Succefully Added!</span>
+          <button className="close-button" onClick={() => setShowAlert(false)}>Close</button>
+        </div>
+      )}
+
+      <div className='task-container'>
+        {
+          tasks.map((task) => (
+            <div key={task.id} className="task"> 
+              <div>
+                Task Title: {task.title} 
+              </div>
+              <div>
+                Description: {task.body} 
+              </div>
+              <div>
+                Status: <button className={`status-button ${task.status}`}
+                onClick={() => {changeStatus(task.id)}}> {task.status} </button>
+              </div>
+              <button className='delete' onClick={() => deleteTask(task.id)}>Delete Task</button>
+            </div>
+          ))
+        }
+      </div>
     </>
   )
 }
