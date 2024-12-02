@@ -46,6 +46,28 @@ const deleteTask = async (id) => {
     alert('Task Successfully Added!')
   }
 
+  //Changing Status from Pending to Completed
+    const changeStatus = async (id) => {
+      try {
+        const taskRef = doc(db, 'tasks', id);
+        const currentTask = await getDoc(taskRef);
+        const currentStatus = currentTask.data().status;
+        const newStatus = currentStatus === 'pending' ? 'completed' : 'pending';
+        
+        await updateDoc(taskRef, {
+          status: newStatus,
+        });
+
+        setTasks((prevTasks) => 
+          prevTasks.map((task) => 
+            task.id === id ? { ...task, status: newStatus } : task
+          )
+        );
+      } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
 
@@ -54,7 +76,7 @@ const deleteTask = async (id) => {
           <h3>Add a Task</h3>
           <input type="text" name="title" id="title" placeholder="title" value={null} required onChange={(e) => setTitle(e.target.value)}/>
           <textarea name="description" id="description" placeholder='task description' value={null} required onChange={(e) => setBody(e.target.value)}></textarea>
-          <button type="submit">Add Task</button>
+          <button type="submit" onClick={() => {setTimeout(()=> {window.location.reload()}, 1500)}}>Add Task</button>
         </form>
       </div>
       {
@@ -67,7 +89,7 @@ const deleteTask = async (id) => {
               Task Body: {task.body} 
             </div>
             <div>
-              Task Status: {task.status} 
+              Task Status: <button onClick={() => {changeStatus(task.id)}}> {task.status} </button>
             </div>
             <button onClick={() => deleteTask(task.id)}>Delete Task</button>
           </div>
