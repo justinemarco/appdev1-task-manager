@@ -1,9 +1,22 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
 import ListTodos from './ListTodos'
 import { BrowserRouter, Routes, Route } from "react-router"
+import { SignIn } from './SignIn'
+import { SignUp } from './SignUp'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from './firebase'
 
 function App () {
   const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user)
+    })
+
+    return unsubscribe
+  }, [])
 
   return(
     <>

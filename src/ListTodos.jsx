@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import './App.css'
 import { db } from './firebase'
 import { collection, doc, getDocs, deleteDoc, addDoc, updateDoc, getDoc } from 'firebase/firestore'
+import { SignOut } from './SignOut';
 
 function ListTodos() {
   const [tasks, setTasks] = useState([]);
@@ -73,7 +74,8 @@ const deleteTask = async (id) => {
       <div className='formStyle'>
         <form onSubmit={addTask}>
           <h2>WELCOME TO THE TASK MANAGER APP!</h2>
-          <h2>Add a Task</h2>
+          {/* <h2>{user.email}</h2> */}
+          <h2>Add a Task | <SignOut /></h2>
           <input type="text" name="title" id="title" placeholder="title" value={null} required onChange={(e) => setTitle(e.target.value)}/>
           <textarea name="description" id="description" placeholder='task description' value={null} required onChange={(e) => setBody(e.target.value)}></textarea>
           <button className="alert-button" type="submit" onClick={() => {setTimeout(()=> {window.location.reload()}, 3500)}}>Add Task</button>
