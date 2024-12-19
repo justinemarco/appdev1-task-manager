@@ -13,6 +13,11 @@ export const SignUp = () => {
     const navigate = useNavigate()
 
     const handleSignUp = async () => {
+        if (!email || !password) {
+            setError('Email and password cannot be empty.');
+            return;
+        }
+
         try {
             await createUserWithEmailAndPassword(auth, email, password)
             navigate('/')
@@ -22,12 +27,12 @@ export const SignUp = () => {
     }
 
     return (
-        <div>
+        <div className="signin-signup-container">
             <h1>Sign Up</h1>
             <input type="email" placeholder="email..." onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="password..." onChange={(e) => setPassword(e.target.value)} />
             <button onClick={handleSignUp}>Sign Up</button>
-            {error && <p>{error}</p>}
+            {error && <p className="error">{error}</p>}
             <p>Already have an account? <Link to="/signin">Sign In</Link></p>
         </div>
     )

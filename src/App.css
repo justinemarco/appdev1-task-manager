@@ -159,3 +159,84 @@ button:hover {
   gap: 20px; 
   margin: 20px; 
 }
+
+/* SignIn and SignUp Style */
+
+.signin-signup-container {
+  width: 400px;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin: 100px auto; /* Center the container vertically */
+}
+
+.signin-signup-container h1 {
+  margin-bottom: 15px;
+  color: #203F9A; 
+  text-align: center;
+}
+
+.signin-signup-container input[type="email"],
+.signin-signup-container input[type="password"] {
+  width: 95%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #E7A0CC; 
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+.signin-signup-container input[type="email"]:focus,
+.signin-signup-container input[type="password"]:focus {
+  border: 1px solid #4E7CB2; 
+}
+
+.signin-signup-container button {
+  background-color: #203F9A;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  width: 100%; /* Make buttons full width */
+}
+
+.signin-signup-container button:hover {
+  background-color: #4E7CB2; 
+}
+
+.signin-signup-container p {
+  text-align: center;
+  color: #666;
+}
+
+.signin-signup-container a {
+  color: #203F9A;
+  text-decoration: none;
+}
+
+.signin-signup-container a:hover {
+  text-decoration: underline;
+}
+
+.signin-signup-container .error {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Error message styles */
+.error {
+  background-color: #f8d7da; 
+  color: #721c24; 
+  border: 1px solid #f5c6cb; 
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
